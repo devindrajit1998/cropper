@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Croppie</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
+    <script src=""></script>
+    <style type="text/css">
+      #croppie-demo {
+        width: 350px;
+      }
+      #croppie-container {
+        padding-top: 30px;
+        padding-left: 160px;
+      }
+      #croppie-view {
+        background: #e1e1e1;
+        width: 450px;
+        padding-left: 40px;
+        height: 450px;
+      }
+      #size-changers {
+        padding-top: 20px;
+      }
+      #size-changers {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Croppie</h2>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <div id="croppie-demo"></div>
+        </div>
+        <div class="col-md-4" id="croppie-container">
+          <strong>Select Image:</strong>
+          <br />
+          <input type="file" id="croppie-input" accept="image/*" />
+          <br />
+          <button class="btn btn-success croppie-crop">Crop Image</button>
+        </div>
+        <div class="col-md-4" style="">
+          <div id="croppie-view"></div>
+        </div>
+        <div id="size-changers">
+        
+          <button type="button" onclick="changeSize(16, 9)">16/9</button>
+          <button type="button" onclick="changeSize(2, 3)">2/3</button>
+          <button type="button" onclick="changeSize(1, 1)">1/1</button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function changeSize(aspectWidth, aspectHeight) {
+        $("#croppie-demo").croppie("destroy");
+        var aspectRatio = aspectWidth / aspectHeight;
+
+        var viewportWidth = 450;
+        var viewportHeight = 450 / aspectRatio;
+
+        if (viewportHeight > 450) {
+          viewportHeight = 450;
+          viewportWidth = 450 * aspectRatio;
+        }
+
+        croppieDemo = $("#croppie-demo").croppie({
+          enableOrientation: true,
+          enableResize: true,
+          viewport: {
+            width: viewportWidth,
+            height: viewportHeight,
+            type: "rectangle",
+          },
+          boundary: {
+            width: 450,
+            height: 450,
+          },
+        });
+      }
+
+      var croppieDemo = $("#croppie-demo").croppie({
+        enableOrientation: true,
+        enableResize: true,
+        viewport: {
+          width: 450,
+          height: 450,
+          type: "rectangle",
+        },
+        boundary: {
+          width: 450,
+          height: 450,
+        },
+      });
+
+      $("#croppie-input").on("change", function () {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          croppieDemo.croppie("bind", {
+            url: e.target.result,
+          });
+        };
+        reader.readAsDataURL(this.files[0]);
+      });
+
+      $(".croppie-crop").on("click", function (ev) {
+        croppieDemo
+          .croppie("result", {
+            type: "canvas",
+            size: "viewport",
+          })
+          .then(function (image) {
+            html = '<img src="' + image + '" />';
+            $("#croppie-view").html(html);
+          });
+      });
+    </script>
+  </body>
+</html>

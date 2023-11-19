@@ -1,0 +1,53 @@
+.cropper_wall {
+  padding: 100px 0;
+}
+.cropper_wall .upload_section {
+  padding: 0 12%;
+}
+.cropper_wall .upload_section .up_div {
+  border: 2px dashed;
+  border-radius: 25px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  cursor: pointer;
+}
+.cropper_wall .upload_section .up_div img {
+  width: 100px;
+  opacity: 0.5;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+.cropper_wall .upload_section .up_div input {
+  padding: 150px 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+.cropper_wall .wall {
+  width: 100%;
+  height: 800px;
+  overflow: hidden;
+  position: relative;
+}
+.cropper_wall .wall img {
+  width: 100%;
+}
+.cropper_wall .wall .frame {
+  width: auto;
+  z-index: 5;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.cropper_wall .wall .frame img {
+  width: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border: 5px solid #000;
+}/*# sourceMappingURL=style.css.map */
